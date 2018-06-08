@@ -1,0 +1,1052 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\begin_modules
+knitr
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<set-options, echo=FALSE, cache=FALSE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+read_chunk('reit 1 calcs.R')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<setup,echo=FALSE,message=FALSE,warning=FALSE,cache=TRUE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Characteristics of the NAREIT Index Compared to Private Real Estate
+\end_layout
+
+\begin_layout Section
+Background
+\end_layout
+
+\begin_layout Standard
+The ASRS strategic asset allocation and the real estate strategic plan provide
+ guidance for the ASRS real estate program.
+ Under these plans, ASRS has allocated eight percent of total assets to
+ real estate.
+ The plans permit, but do not require, investment in REITs as part of the
+ real estate portfolio.
+ ASRS currently holds less than $100 million of real estate program in publicly
+ traded REITs.
+\end_layout
+
+\begin_layout Standard
+The purpose of this paper is to consider whether REITs should play a larger
+ or different role in our portfolio.
+ We consider here the characteristics of the NAREIT index compared to private
+ real estate and whether a passive implementation of REITs would be beneficial
+ to the ASRS real estate program and total portfolio.
+ In a subsequent writing we will consider active and tactical approaches
+ to REITs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Indices
+\end_layout
+
+\begin_layout Standard
+REITs are corporations that own real estate and are organized under tax
+ laws to enjoy tax exempt status.
+ REITs can be public or private, but we confine our focus here to public
+ REITs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Index Market Capitalization
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<marketcap, echo=FALSE, message=FALSE, out.height="3in", out.width="4.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to compare REITs to private real estate, we are using two indices.
+ The FTSE NAREIT all equity REIT total return index (FNERTR bbg ticker)
+ is a market cap weighted index of total return for all equity REITs listed
+ on the NYSE, AMEX and NASDAQ exchanges.
+ The NCREIF NPI total return index (NPPITR bbg ticker) is a market cap weighted
+ appraisal based index of unlevered property returns of investment properties
+ in tax exempt institutional ownership.
+ The total market capitalization of REITs and the total value of properties
+ included in NCREIF are shown in the graph in figure 1.
+ Both indices reflect returns derived from traditional core real estate
+ categories including office, apartments, retail, industrial and hotels.
+ Additionally, REITs own specialty property types such as self storage and
+ senior housing, while these categories are excluded form NCREIF.
+ Both indices are widely used and regarded as representative of their asset
+ category.
+ A more detailed discussion of the properties of the indices is found in
+ a 2003 article by Joe Gyourko
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "http://xwhartonrealestate.merchantquest.net/research/papers/full/470.pdf"
+target "http://xwhartonrealestate.merchantquest.net/research/papers/full/470.pdf"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Returns
+\end_layout
+
+\begin_layout Standard
+In the following charts, we look at the comparative returns of NAREIT and
+ NCREIF indices.
+ REITs are typically levered at 1 to 1.5 to one, while NCREIF is an unlevered
+ index.
+ In order to make the returns more comparable and relevant to the ASRS real
+ estate strategy which contemplates 1 to 1 (50%) leverage, we also provide
+ a 1 to 1 levered NCREIF return.
+ First, we present rolling one year and ten year returns in figure 2.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Rolling Returns
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<rolling, echo=FALSE, out.height="7.5in", out.width="4.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Adjusted for leverage, the NCREIF and NAREIT returns are roughly comparable.
+ We explore this further in the charts in figure 3.
+ In these charts, we plot the difference between the one year rolling and
+ 10 year rolling NAREIT and levered NCREIF returns.
+ We add a regression line to show the trend of the difference.
+ In both cases, the regression line trends down.
+ REITs had a period of strong outperformance during the 1990s.
+ Both indices were much smaller in that time frame with the REIT index holding
+ less than $6 billion in assets in 1990.
+ It's possible that REITs outperformed during the 1990's because they were
+ pursuing more productive parts of the market, but it's also possible that
+ it is simply statistical anomaly.
+ As both indices have become much larger, they appear to have converged.
+ If you look at the later years of the 10 year rolling returns, the NAREIT
+ returns are similar to the levered NCREIF and, by coincidence, nearly identical
+ in the last 10 year period measured.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Difference in Returns
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<diff, echo=FALSE, out.height="7.5in", out.width="4.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Volatility
+\end_layout
+
+\begin_layout Standard
+In figure 4, we present two-sigma confidence ellipses for the return and
+ standard deviation for levered NCREIF and NAREIT for the the most recent
+ 10 and 20 years, ending September 30 for REITs and June 30 for NCREIF.
+ These calculations are based on bootstrapping from those return series
+ over the indicated time frame.
+ While the analysis shows that any difference in returns is not statistically
+ significant, the standard deviation for REITs is much higher.
+\end_layout
+
+\begin_layout Standard
+NCREIF returns are less volatile due to appraisal smoothing.
+ While there is doubt about the usefulness of measured volatility of NCREIF
+ for portfolio construction purposes and we will discuss this below, the
+ appraisal values and returns are required to be used in financial reporting
+ for investors like ASRS.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Return and Standard Deviations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<ellipse, echo=FALSE, out.height="4.5in", out.width="4.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As you can see in figure 5, NCREIF returns are significantly auto-correlated,
+ while REIT figures are only slightly so.
+ As a reference point, we also plot the autocorrelation of the S&P 500 to
+ show it is not autocorrelated at all.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Autocorrelation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<autocor, echo=FALSE, out.height="6.5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The existence of the autocorrelation is a strong indication of lags from
+ the appraisal process.
+ There has been much discussion of this.
+ Gyourko and Keim in a paper from 1993
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Joseph Gyourko, Donald Keim (1993), What Does the Stock Market Tell Us About
+ Real Estate Returns.
+ AREUEA Journal.
+ Available at this link 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://real-estate.wharton.upenn.edu/files/?whdmsaction=public:main.file&fileID=7141"
+target "https://real-estate.wharton.upenn.edu/files/?whdmsaction=public:main.file&fileID=7141"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ explore this in depth.
+ A result of the appraisal lags is to significantly smooth the returns and
+ understate their volatility.
+ David Geltner in a paper from the same year
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+David Geltner, Estimating Market Values from Appraised Values Without Assuming
+ an Efficient Market.
+ Journal of Real Estate Research 8(3), 325-345
+\end_layout
+
+\end_inset
+
+ discussed a method for desmoothing returns which we illustrate here.
+ This approach assumes that appraisals reflect a blending of information
+ from prior valuations and current market trends such that:
+\begin_inset Formula 
+\[
+R.observed_{t}=\alpha(R.observed_{t-1})+(1-\alpha)R.true_{t}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+You then solve for the 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ return as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+R.true_{t}=(R.observed_{t}-\alpha(R.observed_{t-1}))/(1-\alpha)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This can be done with one lag term (as shown in the above formulas) or more.
+ You then solve for smoothing parameters with a regression to find the best
+ fit.
+ With one lag term this is called an 
+\begin_inset Quotes eld
+\end_inset
+
+AR(1)
+\begin_inset Quotes erd
+\end_inset
+
+ process.
+ We have implemented an AR(2) process.
+ The results of the desmoothed returns are shown in figure 6.
+ 
+\end_layout
+
+\begin_layout Standard
+The desmoothed data look promising.
+ They show more volatility and the drawdown of around 60% during the GFC
+ is comparable to the drawdown in REITs in the same time frame.
+ The volatility of the desmoothed returns is more than tripled with the
+ desmoothing process.
+ They are still somewhat autocorrelated, but not as bad.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Desmoothed Returns
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<desmooth, echo=FALSE, out.height="6.5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Correlation
+\end_layout
+
+\begin_layout Standard
+Understanding the correlation of real estate with liquid assets is a conundrum
+ and estimates vary widely.
+ The researchers mentioned above have shown that with some statistical coaxing
+ REITs and NCREIF respond to economic conditions similarly and, when adjusted
+ for leverage, generate comparable returns.
+ That makes sense because it is the exact same activity with a different
+ legal wrapper.
+ That's helpful, but we have more work to do to understand how real estate
+ behaves in a portfolio with other assets.
+\end_layout
+
+\begin_layout Standard
+If we check the correlation of daily REIT returns with S&P 500 returns over
+ the last 5 years, we find that REITs are 83% correlated with large cap
+ stocks.
+ When you consider that the S&P 500 is nearly 50% in tech, pharma and financial
+ firms which bear little resemblance to rental real estate, this is surprising.
+ If we do the same calculation with monthly data since 1994, we still get
+ a correlation of 58%.
+ Clearly the stock market has a big influence on REIT valuation, especially
+ in shorter time frames.
+\end_layout
+
+\begin_layout Standard
+On the other hand, if we check the levered NCREIF correlations using monthly
+ data over the same time period, NCREIF is only 15% correlated with the
+ stock market.
+ This is surprisingly low.
+ Notwithstanding big differences in the fundamental nature of the businesses,
+ both share a connection to the economy and depressed aggregate demand will
+ negatively impact either activity.
+ Desmoothing appears to be of some help here.
+ In addition to increasing volatility to plausible levels the correlation
+ to the stock is increased to 25%, which still feels low but is moving in
+ the right direction.
+\end_layout
+
+\begin_layout Standard
+In tables 1 and 2, we show the mean returns, standard deviation and correlation
+ matrix for these series using monthly returns for 20 years ended June 30,
+ 2014.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<coremat, echo=FALSE, results='asis'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Efficient Portfolios
+\end_layout
+
+\begin_layout Standard
+We will calculate efficient portfolios using the data in the return and
+ correlation tables above.
+ We are using a standard mean-variance optimization algorithm to find a
+ minimum volatility portfolio with an expected return of 8% per year.
+ 
+\end_layout
+
+\begin_layout Standard
+In our first cut at these calculations, we will use the calculated values
+ for the standard deviation and correlation matrix but will use the 
+\begin_inset Quotes eld
+\end_inset
+
+assumed returns
+\begin_inset Quotes erd
+\end_inset
+
+ shown in table 1.
+ We believe that the true underlying returns of real estate are the same
+ whether owned in a public REIT or a private structure.
+ Any difference in measured returns reflects market or statistical anomaly,
+ not a fundamental property that should be incorporated in a portfolio modeling
+ framework.
+ Similarly, we set the return for 
+\begin_inset Quotes eld
+\end_inset
+
+desmoothed
+\begin_inset Quotes erd
+\end_inset
+
+ NCREIF equal to the other real estate categories.
+ We believe 8% is a reasonable long term expected return for levered real
+ estate.
+ We set stock returns 100bp higher at 9%.
+ We set bond returns at 5%.
+ The last 20 years have seen falling rates which have increased bond returns.
+ In a flat to rising rate environment, bond returns should be lower than
+ what occurred in the past 20 years.
+ 
+\end_layout
+
+\begin_layout Standard
+We present in figure 7 three efficient portfolios.
+ Each of the portfolios selects among three assets.
+ Stocks and bonds are included in all the portfolios.
+ The third asset is one of the three real estate constructs -- NAREIT, levered
+ NCREIF, or levered NCREIF desmoothed by the AR(2) process.
+ The MVO model does not give any weight to NAREIT -- it is correlated with
+ stocks, has higher volatility and lower returns.
+ The model loves levered NCREIF and assigns nearly 100% of assets to this
+ category -- it has very low volatiliy, low correlation and good returns.
+ But we have doubts about the reliability of the NCREIF numbers for portfolio
+ allocation purposes because the appraisal process causes volatility and
+ correlations to be understated.
+ Finally, we present a portfolio built using desmoothed NCREIF data reflecting
+ higher volatility and higher correlation to the other assets.
+ This portfolio allocates about 15% to bonds and splits the rest between
+ stocks and real estate.
+ Some real world portfolios might look like that, but the weight is still
+ quite high and much higher than commercial real estate is represented as
+ a proportion among all invest-able assets.
+\end_layout
+
+\begin_layout Standard
+As a thought experiment, we decided to attempt to reverse engineer capital
+ markets.
+ If real estate is 10% to 20% of invest-able assets, what sort of parameters
+ would be consistent in an MVO context for an allocation to real estate
+ of around 20%.
+ We experimented with increased volatility and found that as long as real
+ estate was less volatile, the model tended to approximately split the non-bond
+ assets between stocks and real estate.
+ We also experimented with correlation and found much the same outcome.
+ It wasn't until we increased volatility to an amount equal to what is assumed
+ for stocks and increased correlation to 50% (almost as high as REITs) that
+ the model would reduce its allocation to real estate to around 20%.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Efficient Portfolios
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<efficient, echo=FALSE, out.height="6.5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Efficient Portfolios with Assumed Standard Deviations and 50% correlation
+ of NCREIF AR(2) to SP500
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<efficient2, echo=FALSE, out.height="6.5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusions
+\end_layout
+
+\begin_layout Standard
+REITs and NCREIF are indices reflecting returns from ownership of real estate.
+ When adjusted for leverage, there returns are statistically equivalent
+ although one form of ownership may outperform the other for certain stretches
+ of time.
+ The most reasonable conclusion is that their expected returns are the same.
+\end_layout
+
+\begin_layout Standard
+REITs are very volatile.
+ They are much more volatile than private real estate and more volatile
+ than the stock market.
+ The volatility of private real estate is underestimated by the NCREIF data
+ which is autocorrelated and suffers from smoothing as a result of the appraisal
+ process.
+ Statistical methods of desmoothing have been studied and are illustrated
+ here.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ volatility is likely much higher than what is measured from NCREIF data.
+\end_layout
+
+\begin_layout Standard
+REITs are highly correlated to the stock market, in the 80s on daily data
+ and in the 50s on monthly data.
+ NCREIF shows very low correlation to other assets, but this is likely understat
+ed because of appraisal smoothing.
+ Statistically desmoothed NCREIF series show increaed correlation to both
+ stock and REITs.
+\end_layout
+
+\begin_layout Standard
+We calculated standard deviations and correlations for real estate as NAREIT,
+ levered NCREIF and desmoothed levered NCREIF.
+ Standard MVO models do not select NAREIT and grab large portions of unfiltered
+ NCREIF.
+ These results are moderated when using desmoothed NCREIF but the MVO still
+ selects a large allocation to real estate.
+ We found that if we (arbitrarily) assume that NCREIF volatility is equal
+ to the stock market and 50% correlated with it, the portfolio allocation
+ is reduced to around 20% which is roughly in line with the percentage of
+ commercial real estate among all invest-able assets.
+\end_layout
+
+\begin_layout Standard
+REITs are real estate and an acceptable way to gain exposure to real estate
+ if you are indifferent to volatility and correlation to the stock market.
+ They have the advantage of liquidity but are not expected to generate a
+ higher return.
+ REITs move with the stock market, especially in the short run and thus
+ provide less diversification benefit than private real estate.
+ While the 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ volatility of private real estate is likely to be much higher than the
+ reported volatility based on appraisals, such valuation is used in financial
+ reporting for investors like ASRS and some people regard that as a benefit.
+\end_layout
+
+\begin_layout Standard
+In a future writing, we will discuss active management and tactical approaches
+ with REITs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Code and Data
+\end_layout
+
+\begin_layout Subsection
+Link to files
+\end_layout
+
+\begin_layout Standard
+Code and data for this project are found on the ASRS server at the following
+ link 
+\begin_inset CommandInset href
+LatexCommand href
+name "P:\\IMD\\Karl\\R projects\\reits"
+target "P:\\IMD\\Karl\\R projects\\reits"
+type "file:"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Code for data analysis, graphs and tables
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "reit 1 calcs.R"
+lstparams "breaklines=true,language=R"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Code for data retrieval
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand lstinputlisting
+filename "reit data retrieval.R"
+lstparams "breaklines=true,language=R"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

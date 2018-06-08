@@ -1,0 +1,112 @@
+Real estate returns -- statistical properties
+========================================================
+```{r message=FALSE,warning=FALSE}
+library("zoo")
+library("car")
+library("boot")
+rr.df=read.csv(file="U:/Me/R/real estate returns.csv")
+apt=log(1+rr.df$Apt)  # extract apartment returns from data frame and convert to CC
+off=log(1+rr.df$Off) # extract office return from data frame and convert to CC
+ind=log(1+rr.df$Ind)
+ret=log(1+rr.df$Ret)
+n=length(apt)
+reit.df=read.csv(file="U:/Me/R/nareit.csv")
+reit=diff(log(reit.df$nareit)) #calculate quarterly cc returns
+mu.rr=zooreg(cbind(apt,off,ind,ret,reit), start=c(floor(rr.df[1,1]/10),rr.df[1,1]%%10), 
+              end=c(floor(rr.df[n,1]/10),rr.df[n,1]%%10),frequency=4)
+colnames(mu.rr)=c("Apartments","Office","Industrial","Retail","REIT")
+colors=c("red","blue","green","purple","orange")
+plot(mu.rr,main="U.S. Real Estate -- Quarterly Continuous Compounded Returns",col=colors)  # plot raw returns
+plot(exp(cumsum(mu.rr)),plot.type="single",col=colors,ylab="Growth of a $",lwd=2) # growth of dollar returns
+legend("topleft",colnames(mu.rr),col=colors,lwd=2)
+# bootstrap returns and standard deviations
+br=function(r,d) {
+  c(mean(r[d]),sd(r[d]))
+}
+set.seed(1532)
+apt.b=boot(apt,br,R=999)
+off.b=boot(off,br,R=999)
+ind.b=boot(ind,br,R=999)
+ret.b=boot(ret,br,R=999)
+reit.b=boot(ret,br,R=999)
+# plot 95% confidence ellipse of expected return and standard deviation
+muhat.vals = colMeans(mu.rr)
+sigmahat.vals = apply(mu.rr,2,sd)
+se.muhat = c(sd(apt.b$t[,1]),sd(off.b$t[,1]),sd(ind.b$t[,1]),sd(ret.b$t[,1]),sd(reit.b$t[,1]))
+se.sigmahat = c(sd(apt.b$t[,2]),sd(off.b$t[,2]),sd(ind.b$t[,2]),sd(ret.b$t[,2]),sd(reit.b$t[,2]))
+mu.lower = muhat.vals - 2.2*se.muhat
+mu.upper = muhat.vals + 2.2*se.muhat
+sigma.lower = sigmahat.vals - 2.2*se.sigmahat
+sigma.upper = sigmahat.vals + 2.2*se.sigmahat
+plot(sigmahat.vals, muhat.vals, xlim=c(min(sigma.lower), max(sigma.upper)), 
+     ylim=c(min(mu.lower),max(mu.upper)), xlab="standard deviation",ylab="expected return",
+     main="95% confidence ellipses -- quarterly returns and standard deviations")
+mm=2*2*matrix(c(1,0,0,1),nrow=2,ncol=2)
+for (i in 1:length(muhat.vals)) ellipse(c(sigmahat.vals[i],muhat.vals[i]), mm, c(se.sigmahat[i],se.muhat[i]),col=colors[i])
+legend("top",colnames(mu.rr),col=colors,lwd=2)
+
+# rolling returns -- 5 year
+ra=function(x) {
+  mean(x)
+}
+r.apr=rollapply(cbind(apt,off,ind,ret,reit),width=20,FUN=ra,align="right",by.column=TRUE)
+r.apr=zooreg(r.apr,start=c(1999,1),end=c(2012,3),frequency=4)
+plot(r.apr,type="l",main="5 year rolling quarterly returns",ylab="Expected Returns",plot.type="single",col=colors,lwd=2)
+abline(h=c(.01,.02,.03,.04,.05))
+legend("bottomleft",colnames(mu.rr),col=colors,lwd=2)
+
+#explore correlation
+#
+#show correlation matrix
+cor(mu.rr)
+#plot pairwise scattercharts
+pairs(mu.rr)
+
+#rolling correlation of apartments and other property types
+rcor=function(x) { 
+  cor(x)[1,c(2,3,4,5)]
+}
+cor.apt.ret=rollapply(cbind(apt,off,ind,ret,reit),width=20,FUN=rcor,align="right",by.column=FALSE)
+cor.apt.ret=zooreg(cor.apt.ret,start=c(1999,1),end=c(2012,3),frequency=4)
+plot(cor.apt.ret,type="l",main="5 year rolling correlation - apartments and other property types",
+     ylab="correlations",col=c("blue","red","green","orange"),lwd=2,plot.type="single")
+legend("right",c("Office","Industrial","Retail","REIT"),col=colors[-1],lwd=2)
+
+#efficient portfolio of property types
+#calculated for all time periods
+source('~/R/Zivot/portfolio_noshorts.r.txt', encoding='UTF-8')
+cov.mat=var(mu.rr)
+rf=.001
+tan.port=tangency.portfolio(muhat.vals,cov.mat,rf,shorts=FALSE)
+summary(tan.port)
+plot(tan.port,col=colors)
+
+
+#tangency portfolio is the efficient portfolio with the highest sharpe ratio
+#
+
+#now lets consider how stable this solution is
+#5 yr rolling efficient portfolios of property types
+rolltan = function(x) {
+  mu.hat = colMeans(x)
+  cov.hat = var(x)
+  gmin = tangency.portfolio(er = mu.hat, cov.mat = cov.hat, risk.free = rf, 
+                            shorts = FALSE)
+  ans = c(gmin$er, gmin$sd, gmin$weights)
+  names(ans)[1:2] = c("expected return", "standard deviation")
+  ans
+}
+roll.tan = rollapply(mu.rr, width = 20, by.column = F, align = "right", FUN = rolltan)
+
+plot(roll.tan[, 3:7], main = "Rolling weights in tangency portfolio", plot.type = "single", 
+     col = colors, lwd = 3, ylab = "weight")
+abline(h = 0)
+legend(x = "left", legend = colnames(mu.rr),  col = colors, 
+       lwd = 3)
+
+plot(roll.tan[, 1:2], plot.type = "single", ylab = "percent", main = "Rolling means and sds on tangency portfolio", 
+     col = c("black", "grey"), lwd = 3)
+abline(h = 0)
+legend(x = "topleft", legend = colnames(roll.tan[, 1:2]), lty = rep(1, 2), col = c("black", 
+                                                                                   "grey"), lwd = 3)
+```

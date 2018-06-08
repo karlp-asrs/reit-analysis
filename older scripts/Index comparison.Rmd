@@ -1,0 +1,256 @@
+
+```{r echo=false}
+mu.nf=
+  c(1.36,1.84,.76,2.25,
+    1.41,2.13,1.07,3.64,
+    1.77,2.84,1.31,3.13,
+    1.02,4.25,1.2,2.88,
+    1.21,3.23,1.1,3.96,
+    1.22,3.58,.63,3.12,
+    1.04,2.62,1.21,2.18,
+    1.2,1.41,.79,3.39,
+    1.07,1.33,1.55,2.87,
+    .68,1.31,.03,-.01,
+    .65,1.68,.84,3.55,
+    1.21,1.74,.95,5.51,
+    1.69,2.61,.74,14.63,
+    2.08,3.66,3.06,22.78,
+    4.02,2.44,1.93,11.55,
+    2.13,2.33,2.76,7.92,
+    1.17,4.5,2.09,7.33,
+    1.32,1.15,1.01,2.71,
+    1.11,.67,1.03,5.79,
+    2.4,1.48,1.97,8.7,
+    3.78,2.34,1.91)
+mu.nf=log(1+(mu.nf/100)) ## convert to continuously compounded returns
+nfrmat=matrix(c(mu.nf,NA),(1+length(mu.nf))/4,4,byrow=TRUE)
+colnames(nfrmat)=c("Q1","Q2","Q3","Q4")
+rownames(nfrmat)=1992:2012
+
+
+library("zoo")  #load function for reading csv file
+ag.df=read.csv(file="Ag commodities.csv")  ## this is dependent on local environment
+agidx=ag.df[,2] #extract prices from the data frame
+mu.agidx=log(agidx[-1]/agidx[-length(agidx)]) ## calculate continuously compounded monthly returns
+mu.agidx=mu.agidx[51:(length(mu.agidx)-1)] ## drop  Nov 1987- Dec 1991 data and Oct 2012 to conform time frame
+mu.agidx=matrix(mu.agidx,(length(mu.agidx)/3),3,byrow=TRUE) ## step 1 to convert quarters 
+mu.agidx=apply(mu.agidx,1,sum) ## convert to quarterly returns
+## next food price index
+food.df=read.csv(file="Index mundi food price.csv")
+foodidx=food.df[,2] #extract prices from the data frame
+mu.foodidx=diff(log(foodidx)) ## calculate CC returns
+mu.foodidx=mu.foodidx[12:(length(mu.foodidx)-1)] ## drop 1991 and oct 2012 data
+mu.foodidx=matrix(mu.foodidx,(length(mu.foodidx)/3),3,byrow=TRUE)
+mu.foodidx=apply(mu.foodidx,1,sum)  ## convert to quarterly returns
+## finally grain index
+grain.df=read.csv(file="DJUBS grains.csv")
+grainidx=grain.df[,2]
+mu.grainidx=diff(log(grainidx))
+mu.grainidx=mu.grainidx[4:length(mu.grainidx)] ## drop 1991 data, these are already quarterly
+## CPI
+## CPI X Food and Energy
+## Food PPI
+## Energy PPI
+#create a return matrix
+rmat=cbind(mu.nf,mu.agidx,mu.foodidx,mu.grainidx)
+colnames(rmat)=c("Farmland","RawMaterials","Food","Grain")
+rmat=zooreg(rmat,start=c(1992,1),end=c(2012,3),frequency=4)
+```
+plot the raw returns
+```{r}
+plot(rmat)
+```
+compare the 4 indices in pair wise plots
+```{r}
+pairs(rmat)
+```
+Doesn't look like Farmland is connected with commodities
+Let's do one regression to check stats
+calculate a linear regression ag raw materials as x axis and farm prices as y
+```{r}
+reg.agidx.nf=lm(mu.nf~mu.agidx)
+#display summary of regression results
+summary(reg.agidx.nf)
+```
+The summary data support what are the scatter graph suggests.  Little to no connection.  Note low Rsquared and negative coefficient.
+
+plot data with regression line
+```{r}
+plot(mu.agidx,mu.nf,main="Regression of raw materials and farmland")
+intercept=reg.agidx.nf$coef[1]
+coeff=reg.agidx.nf$coeff[2]
+lower=min(mu.agidx)
+upper=max(mu.agidx)
+x=seq(lower,upper,.01)
+lines(x,intercept+coeff*x,col="red",type="l")
+```
+Now lets look at farmland and ag commodities as a portfolio
+read in functions for portfolio analysis -- the file address is local environment dependant
+```{r}
+source('~/R/zivot/portfolio_noshorts.r.txt',encoding='UTF-8')
+```
+plot a growth of dollar chart
+```{r}
+plot(exp(cumsum(rmat[,"Farmland"])),xlab="Quarters Q1 1992 thru Q3 2012",ylab="Value",
+     main="Growth of Dollar",type='l',col='blue',lwd=2,ylim=c(0,10))
+lines(exp(cumsum(rmat[,"RawMaterials"])),type='l',col='red',lwd=2)
+lines(exp(cumsum(rmat[,"Food"])),type='l',col='green',lwd=2)
+lines(exp(cumsum(rmat[,"Grain"])),type='l',col='black',lwd=2)
+legend(x='topleft',legend=colnames(rmat),col=c('blue','red','green','black'),lwd=3)
+```
+Set up model parameters for portfolio analysis
+We are going to calculate a tangency portfolio consisting only of the four agricultural assets.  A tangency portfolio is an efficient portfolio that has the highest sharpe ratio.
+```{r}
+mu.vals=apply(rmat,2,mean)
+sigma2.vals=apply(rmat,2,var)
+sigma.vals=apply(rmat,2,sd)
+cov.mat=var(rmat)
+cor.mat=cor(rmat)
+#calculate the tangency portfolio (max sharpe ratio) of ag land and ag commodities
+#allow short sales
+rf=.005 # risk free rate = .5% per quarter
+tan.port=tangency.portfolio(mu.vals,cov.mat,rf,shorts=TRUE)
+summary(tan.port)
+plot(tan.port, col="green")
+```
+Note this portfolio has a short position in grains.  Now let's do it prohibiting shorts
+```{r}
+tan.port.ns=tangency.portfolio(mu.vals,cov.mat,rf,shorts=FALSE)
+summary(tan.port.ns)
+plot(tan.port.ns, col="green")
+```
+Let's now consider a portfolio of farmland, stocks and bonds
+Note: I'm doing this while traveling. I don't readily have good index data on home computer.  So. . .
+Using SPY S&P 500 etf for stocks
+Using VFICX Vanguard intermediate term investment grade mutual fund for bonds
+In this case downloading prices from Yahoo finance
+```{r}
+library(tseries)
+## download prices from Yahoo
+VFICX.prices = get.hist.quote(instrument="vficx", start="1996-07-01",
+                              end="2012-10-31", quote="AdjClose",
+                              provider="yahoo", origin="1970-01-01",
+                              compression="m", retclass="zoo")
+SPY.prices = get.hist.quote(instrument="spy", start="1996-07-01",
+                              end="2012-10-31", quote="AdjClose",
+                              provider="yahoo", origin="1970-01-01",
+                              compression="m", retclass="zoo")
+## Calculate CC returns
+mu.VFICX=diff(log(VFICX.prices))
+mu.SPY=diff(log(SPY.prices))
+## convert to quarterly
+nquarters=length(mu.VFICX)/3
+mu.VFICX=matrix(mu.VFICX,nquarters,3,byrow=TRUE)
+mu.VFICX=apply(mu.VFICX,1,sum)
+mu.SPY=matrix(mu.SPY,nquarters,3,byrow=TRUE)
+mu.SPY=apply(mu.SPY,1,sum)
+## delete early quarters on NCREIF farm index to match data available on other indices
+nquarter.nf=length(mu.nf)
+mu.nf2=mu.nf[(1+nquarter.nf-nquarters):nquarter.nf]
+rmat=cbind(mu.nf2,mu.SPY,mu.VFICX)
+colnames(rmat)=c("Farmland","Stocks","Bonds")
+rmat=zooreg(rmat,start=c(1996,3),end=c(2012,3),frequency=4)
+```
+plot the raw returns
+```{r}
+plot(rmat)
+```
+plot the pairwise scattercharts
+```{r}
+pairs(rmat)
+```
+plot the returns as growth of dollar chart
+```{r}
+plot(exp(cumsum(rmat[,"Farmland"])),xlab="Quarters since 1996 Q3",ylab="Value",
+                main="Growth of Dollar",type='l',col='blue',lwd=2)
+lines(exp(cumsum(rmat[,"Stocks"])),type='l',col='red',lwd=2)
+lines(exp(cumsum(rmat[,"Bonds"])),type='l',col='green',lwd=2)
+legend(x='topleft',legend=colnames(rmat),col=c('blue','red','green'),lwd=3)
+```
+Now calculate the tangency portfolio with short sales permitted
+```{r}
+mu.vals=apply(rmat,2,mean)
+mu.vals
+sigma2.vals=apply(rmat,2,var)
+sigma.vals=apply(rmat,2,sd)
+sigma.vals
+cov.mat=var(rmat)
+cor.mat=cor(rmat)
+#allow short sales
+rf=.005 # risk free rate = .5% per quarter
+tan.port=tangency.portfolio(mu.vals,cov.mat,rf,shorts=TRUE)
+summary(tan.port)
+```
+```{r}
+plot(tan.port, col="green")
+```
+Same thing, but this time prohibiting shorts
+```{r}
+tan.port.ns=tangency.portfolio(mu.vals,cov.mat,rf,shorts=FALSE)
+summary(tan.port.ns)
+```
+```{r}
+plot(tan.port.ns, col="green")
+```
+This is not a conventional portfolio.
+Now let's consider how stable these results are over time.
+So, let's do 5 year rolling calculations of tangency portfolio with Shorts allowed
+```{r}
+rolltan = function(x) {
+  mu.hat = colMeans(x)
+  cov.hat = var(x)
+  gmin = tangency.portfolio(er=mu.hat,cov.mat=cov.hat,risk.free=rf,shorts=TRUE)
+  ans = c(gmin$er,gmin$sd,gmin$weights)
+  names(ans)[1:2] = c("er","sd")
+  ans
+}
+roll.tan = rollapply(rmat,width=20,
+                      by.column=F,align="right",
+                      FUN=rolltan)
+
+plot(roll.tan[,3:5],main="Rolling weights in tangency portfolio",
+     plot.type="single", col=1:3, lwd=3, ylab="weight")    
+abline(h=0)
+legend(x="bottomleft",legend=colnames(rmat),
+       lty=rep(1,3),col=1:3,lwd=3)
+```
+```{r}
+plot(roll.tan[,1:2],plot.type="single",ylab="percent",
+     main="Rolling means and sds on tangency portfolio",
+     col=c("black","orange"),lwd=3)
+abline(h=0)
+legend(x="topleft",legend=colnames(roll.tan[,1:2]),
+       lty=rep(1,2),col=c("black","orange"),lwd=3)
+```
+Now, let's do rolling calculations of tangency portfolio with Shorts prohibited
+```{r}
+rolltan = function(x) {
+  mu.hat = colMeans(x)
+  cov.hat = var(x)
+  gmin = tangency.portfolio(er=mu.hat,cov.mat=cov.hat,risk.free=rf,shorts=FALSE)
+  ans = c(gmin$er,gmin$sd,gmin$weights)
+  names(ans)[1:2] = c("er","sd")
+  ans
+}
+roll.tan = rollapply(rmat,width=20,
+                     by.column=F,align="right",
+                     FUN=rolltan)
+
+plot(roll.tan[,3:5],main="Rolling weights in tangency portfolio",
+     plot.type="single", col=1:3, lwd=3, ylab="weight")    
+abline(h=0)
+legend(x="bottomleft",legend=colnames(rmat),
+       lty=rep(1,3),col=1:3,lwd=3)
+```
+```{r}
+plot(roll.tan[,1:2],plot.type="single",ylab="percent",
+     main="Rolling means and sds on tangency portfolio",
+     col=c("black","orange"),lwd=3)
+abline(h=0)
+legend(x="topleft",legend=colnames(roll.tan[,1:2]),
+       lty=rep(1,2),col=c("black","orange"),lwd=3)
+```
+
+
+
+
