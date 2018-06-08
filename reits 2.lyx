@@ -157,13 +157,6 @@ This is part of a series of papers to consider whether REITs should play
  In a subsequent writing we will consider tactical approaches to REITs.
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage clearpage
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 Performance
 \end_layout
@@ -175,16 +168,66 @@ In order to consider the efficacy of active management of an equity REIT
  Based on a screening of equity funds from a Bloomberg terminal, there are
  currently 130 U.S.
  based mutual funds investing in equity REITs.
- Of those, 120 have been operating for at least a full year and our analysis
- is limited to these firms.
+ We have eliminated from the analysis two long/short mutual funds.
 \end_layout
 
 \begin_layout Standard
 In order to perform calculations, we have downloaded monthly total net returns
  (i.e.
- net of all fees with dividends reinvested) for all 120 of these mutual
- funds and compare those returns to the MSCI US REIT Index.
- There is a long history of studies that proceed from analysis of mutual
+ net of all fees with dividends reinvested) for all of these mutual funds
+ and compare those returns to a relevant REIT total return index.
+ We have used the NAREIT index for U.S.
+ funds and the Dow Jones indices for global and international funds.
+ We then compare the performance of each mutual fund to a relevant index
+ depending on the strategy.
+ A plot of the relative performance of the three indices is shown in figure
+ 1.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Comparison of Total Return Indices
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<indexplot, echo=FALSE, message=FALSE, out.height="3in", out.width="4.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There is a long history of studies that proceed from analysis of mutual
  fund data.
  In structuring the tests described herein, we referred to an article by
  Baks, Metrick and Wachter.
@@ -200,7 +243,7 @@ Klaas Baks, Andrew Metrick, and Jessica Wachter, 2001, Should Investors
 
 \end_inset
 
- In figure 1, we present the results of this analysis showing the excess
+ In figure 2, we present the results of this analysis showing the excess
  return on the y axis and information ratio of that excess return on x axis.
 \end_layout
 
@@ -209,10 +252,6 @@ Klaas Baks, Andrew Metrick, and Jessica Wachter, 2001, Should Investors
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -255,26 +294,32 @@ status open
 \end_layout
 
 \begin_layout Standard
-Among the 120 funds presented, there are 27 that earned enough excess return
+Among the 128 funds presented, there are 39 that earned enough excess return
  to overcome their management fees and return a positive net excess return.
- Among those with a positive return, the highest information ratio was .43.
- In addition to these 27 firms, there were 12 additional firms whose annual
+ Among those with a positive return, the highest information ratio was 1.78,
+ but that fund has only been existence for 8 months.
+ The next highest information ratio was .87.
+ In addition to these 39 firms, there were 32 additional firms whose annual
  excess return was 
 \emph on
 minus 
 \emph default
 1% or better.
  So, if you estimate average management fees at around 1% per year there
- were 39 firms out of 120 that earned positive excess gross returns.
- This compares unfavorably with studies of mutual fund performance in general
- equities.
- For example, the just cited Baks study found that among 1,437 equity mutual
- funds, 705 had positive gross excess returns.
- So, 49% of the equity managers beat their index in the Baks study and 32%
- of the managers beat their index in this analysis.
- These statistics suffer from survivor bias because they do not consider
- firms that went out of business during the study period and the true percentage
- of winners is probably lower.
+ were 71 firms out of 128 that earned positive excess gross returns.
+ This is a ratio of 55%, but it suffers from survivor bias and therefore
+ is likely to overestimate the percentage of funds beating the market.
+ The probability of producing excess gross returns does not appear to be
+ meaningfully better than coin toss odds.
+\end_layout
+
+\begin_layout Standard
+The prospects for active management might be slightly better in the U.S.
+ Among the 71 firms with estimated gross excess return above zero, 47 of
+ them are U.S.
+ funds, a ratio of 65% of among all the U.S.
+ funds.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -288,9 +333,9 @@ t test
 \end_inset
 
  to assess the statistical significance of the excess return.
- The results of the t test for these 120 managers are shown in figure 2.
+ The results of the t test for these managers are shown in figure 3.
  As you can see, among managers with positive performance the highest t
- values are less than .5 and the lowest p values are around 60%.
+ values are less than 1 and the lowest p values are around 60%.
  None are remotely close to statistical significance.
 \end_layout
 
@@ -335,17 +380,6 @@ status open
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage clearpage
 \end_inset
 
 
@@ -361,23 +395,21 @@ Now we consider the persistence of performance.
  years and split the performance periods to the last five years and the
  five years prior to that.
  We then calculate the information ratios for both performance periods.
- The results of that analysis are presented in figure 3.
+ The results of that analysis are presented in figure 4.
  In this graph, the red dashed line is a regression line of the last five
  year information ratio as a function of the prior five year period.
 \end_layout
 
 \begin_layout Standard
-As you can see, there is very low persistence of performance and prior performan
-ce has essentially no predictive value of future performance.
- Among the 58 firms, there were only three with positive net return information
- ratios in both test periods.
- 
+As you can see from the more or less random character of the chart, prior
+ performance has low predictive value of future performance.
+ Among the 58 firms, only 4 had positive information ratios in both periods
 \end_layout
 
 \begin_layout Standard
 Let's suppose that based on the first five years you made investments with
- the six firms that had information ratios greater than .5.
- Your outcome for the next five years would have been that 5 of the 6 managers
+ the nine firms that had information ratios greater than .5.
+ Your outcome for the next five years would have been that 7 of the 9 managers
  you chose would have underperformed their benchmark.
 \end_layout
 
@@ -386,10 +418,6 @@ Let's suppose that based on the first five years you made investments with
 wide false
 sideways false
 status open
-
-\begin_layout Plain Layout
-
-\end_layout
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -438,67 +466,12 @@ Conclusions
 \begin_layout Standard
 The results here do not make a case for active management.
  We looked at the entire universe of active mutual fund managers.
- Among those managers, only 23% produced positive net excess returns.
- We found scant evidence of persistence with only 3 out 58 managers outperformin
+ Among those managers, only 30% produced positive net excess returns.
+ We found scant evidence of persistence with only 4 out 58 managers outperformin
 g the index on a net basis in two successive five year periods.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage clearpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-Code and Data
-\end_layout
-
-\begin_layout Subsection
-Link to files
-\end_layout
-
-\begin_layout Standard
-Code and data for this project are found on the ASRS server at the following
- link 
-\begin_inset CommandInset href
-LatexCommand href
-name "P:\\IMD\\Karl\\R projects\\reits"
-target "P:\\IMD\\Karl\\R projects\\reits"
-type "file:"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Code for calculations and graphs
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand lstinputlisting
-filename "reitq2.R"
-lstparams "breaklines=true,language=R"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Subsection
-Code for data retrieval
-\end_layout
-
-\begin_layout Standard
-\begin_inset CommandInset include
-LatexCommand lstinputlisting
-filename "reit mf data.R"
-lstparams "breaklines=true,language=R"
-
-\end_inset
-
 
 \end_layout
 

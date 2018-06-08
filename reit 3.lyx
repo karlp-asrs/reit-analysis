@@ -1,0 +1,790 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\begin_modules
+knitr
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<set-options, echo=FALSE, cache=FALSE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+read_chunk('reit 3 calcs.R')
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<setup,echo=FALSE,message=FALSE,warning=FALSE,cache=TRUE>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+REITs as a Tactical Asset
+\end_layout
+
+\begin_layout Author
+Karl Polen
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+In this paper, we consider REITs as a tactical asset.
+ We will consider the usefulness in forecasting REIT prices of three potential
+ predictor variables -- REIT dividend yield spread to treasury, REIT dividend
+ yield spread to S&P 500 dividend yield, and REIT price to book ratio.
+ Each of these measures can be thought of as a fundamental indicator of
+ value and will test their efficacy in forecasting returns.
+\end_layout
+
+\begin_layout Section
+Data Set
+\end_layout
+
+\begin_layout Standard
+This report uses daily data from Bloomberg.
+ The REIT index is the NAREIT equity REIT total return index.
+ With respect to that index, Bloomberg has 
+\begin_inset Quotes eld
+\end_inset
+
+fields
+\begin_inset Quotes erd
+\end_inset
+
+ for dividend yield and price to book back to May 31, 2006.
+ So, that is the inception date of this work providing over 2000 daily observati
+ons.
+\end_layout
+
+\begin_layout Section
+Price to Book
+\end_layout
+
+\begin_layout Standard
+In figure 1, we show historical price to book ratios in a plot aligned with
+ the REIT total return index.
+ The horizontal dotted line is the mean price to book ratio.
+\end_layout
+
+\begin_layout Standard
+In figure 2, we show a scatter plot with price to book as a predictor variable
+ for the next month REIT index return.
+ Note in this chart, the trend is generated using a localized regression
+ method.
+ As you can see from the scatter chart, there is clear at the extremes but
+ somewhat of a cloud in the middle.
+ We tried a linear regression and although the results were significant
+ the standard error of the residual was quite large.
+ So, the visual technique of the localized regression seems more satisfactory.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Price to Book
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<ptobook, echo=FALSE, message=FALSE, out.height="6in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Price to Book as Predictor for One Month Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<ptobook1, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Price to Book as Predictor for Six Month Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<ptobook6, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Price to Book as Predictor for One Year Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<ptobook12, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+REIT dividend yield spread to S&P500 dividend yield
+\end_layout
+
+\begin_layout Standard
+Next we present the spread between the REIT dividend yield and the S&P 500
+ dividend yield as a predictor variable.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to SP500 Dividend Yield
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<spyspread, echo=FALSE, message=FALSE, out.height="6in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to SP500 Dividend Yield as Predictor for One Month Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<spyspread1, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to SP500 Dividend Yield as Predictor for Six Month Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<spyspread6, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to SP500 Dividend Yield as Predictor for One Year Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<spyspread12, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+REIT dividend yield spread to treasury
+\end_layout
+
+\begin_layout Standard
+Now, we turn to the REIT dividend yield spread to 5 year treasury as a predictor
+ variable.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to 5 Yr.
+ Treas.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<yspread, echo=FALSE, message=FALSE, out.height="6in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to 5 Yr.
+ Treas.
+ as Predictor for One Month Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<yspread1, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to 5 Yr.
+ Treas.
+ as Predictor for Six Month Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<yspread6, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spread to 5 Yr.
+ Treas.
+ as Predictor for One Year Return
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<yspread12, echo=FALSE, message=FALSE, out.height="5in", out.width="5.5in">>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+We examined three predictor variables thought to have potential as fundamental
+ indicators of value.
+ None of them were unambiguously effective at projecting short term returns
+ and the spread to S&P 500 dividend is generally ineffective.
+ However, both the price to book ratio and spread to treasury measures both
+ showed clear cut connection to longer run returns of 6 to 12 months.
+ 
+\end_layout
+
+\begin_layout Standard
+Looking at the various charts on price to book, there is little ambiguity
+ that price to book measures of less than 2 are an indicator of value and
+ that a purchaser at this value stands a good chance of making favorable
+ returns if they can wait it out 6 to 12 months.
+ Similarly, values greater than 2.75 are a negative indicator of value.
+ However, the picture is mixed in the middle.
+ Quite a few observations in this middle range occurred in 2007 or 2008
+ and were followed by substantial losses.
+ On the other hand, REIT values were steadily inside inside this 2 to 2.75
+ book to value range throughout an extended rally from 2012 through 2014.
+ Among the 2218 observations in this data set, 69% of them were in the 2
+ to 2.75 range, while 10% were below 2 and 21% were above 2.75.
+\end_layout
+
+\begin_layout Standard
+Not surprisingly, the patter is somewhat similar with spread to treasury.
+ Spreads greater 3% are strongly associated with favorable ensuing returns.
+ Spreads less than around 1% tend to be associated with negative returns,
+ but rallies occurred in this value range in both 2006 and 2011.
+ Once again, the mid-range is ambiguous.
+ REITs were valued at a 1% to 3% spread to treasury in 2007 and 2008 leading
+ up to major losses during the global financial crisis.
+ They have been similarly valued through most of the rally that has occurred
+ from 2012 through 2014.
+ Sixty-eight percent of the measurements fell in the 1% to 3% range, while
+ 19% were less than 1% and 13% were greater than 3%.
+\end_layout
+
+\begin_layout Standard
+These univariate measures provide decent indicators of value at the extremes.
+ But for the great majority of measurements in a mid-range, they do not
+ provide a strong indication of value and likely returns during the ensuing
+ year.
+\end_layout
+
+\begin_layout Standard
+In future research we hope to explore multivariate models incorporating
+ additional fundamental measures, market technical indicators and economic
+ variables.
+ We plan to employ machine learning techniques to see if they lead to additional
+ insights.
+\end_layout
+
+\end_body
+\end_document
